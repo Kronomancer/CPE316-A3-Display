@@ -29,75 +29,180 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 
+//void LCD_init(void)
+//{
+//	// set PA0-PA7 to correspond to D0-D7 on the display
+//	RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOAEN); // enable GPIOA
+//
+//	// set mode to 01b
+//    GPIOA->MODER &=   ~(GPIO_MODER_MODE0 |
+//    					GPIO_MODER_MODE1 |
+//						GPIO_MODER_MODE2 |
+//						GPIO_MODER_MODE3 |
+//						GPIO_MODER_MODE4 |
+//						GPIO_MODER_MODE5 |
+//						GPIO_MODER_MODE6 |
+//						GPIO_MODER_MODE7);
+//
+//    GPIOA->MODER  |=   (GPIO_MODER_MODE0_0 |
+//						GPIO_MODER_MODE1_0 |
+//						GPIO_MODER_MODE2_0 |
+//						GPIO_MODER_MODE3_0 |
+//						GPIO_MODER_MODE4_0 |
+//						GPIO_MODER_MODE5_0 |
+//						GPIO_MODER_MODE6_0 |
+//						GPIO_MODER_MODE7_0);
+//
+//    // PUPD to 00b
+//    GPIOA->PUPDR &=	  ~(GPIO_PUPDR_PUPD0 |
+//    					GPIO_PUPDR_PUPD1 |
+//						GPIO_PUPDR_PUPD2 |
+//						GPIO_PUPDR_PUPD3 |
+//						GPIO_PUPDR_PUPD4 |
+//						GPIO_PUPDR_PUPD5 |
+//						GPIO_PUPDR_PUPD6 |
+//						GPIO_PUPDR_PUPD7);
+//
+//
+//	// set PB0 to RS
+//	// set PB1 to RW
+//	// set PB2 to E
+//    RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOBEN);
+//
+//    GPIOB->MODER &=   ~(GPIO_MODER_MODE0 |
+//    					GPIO_MODER_MODE1 |
+//						GPIO_MODER_MODE2);
+//
+//    GPIOB->MODER |=    (GPIO_MODER_MODE0_0 |
+//			  	  	  	GPIO_MODER_MODE1_0 |
+//					    GPIO_MODER_MODE2_0);
+//
+//    GPIOB->PUPDR &=   ~(GPIO_PUPDR_PUPD0 |
+//						GPIO_PUPDR_PUPD1 |
+//						GPIO_PUPDR_PUPD2);
+//
+//}
+
 void LCD_init(void)
 {
 	// set PA0-PA7 to correspond to D0-D7 on the display
-	RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOAEN); // enable GPIOA
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 
-	// set mode to 01b
-    GPIOA->MODER &=   ~(GPIO_MODER_MODE0 |
-    					GPIO_MODER_MODE1 |
-						GPIO_MODER_MODE2 |
-						GPIO_MODER_MODE3 |
-						GPIO_MODER_MODE4 |
-						GPIO_MODER_MODE5 |
-						GPIO_MODER_MODE6 |
-						GPIO_MODER_MODE7);
+	GPIOA->MODER &= ~(GPIO_MODER_MODE0 |
+					  GPIO_MODER_MODE1 |
+					  GPIO_MODER_MODE2 |
+					  GPIO_MODER_MODE3 |
+					  GPIO_MODER_MODE4 |
+					  GPIO_MODER_MODE5 |
+					  GPIO_MODER_MODE6 |
+					  GPIO_MODER_MODE7);
 
-    GPIOA->MODER  |=   (GPIO_MODER_MODE0_0 |
-						GPIO_MODER_MODE1_0 |
-						GPIO_MODER_MODE2_0 |
-						GPIO_MODER_MODE3_0 |
-						GPIO_MODER_MODE4_0 |
-						GPIO_MODER_MODE5_0 |
-						GPIO_MODER_MODE6_0 |
-						GPIO_MODER_MODE7_0);
+	GPIOA->MODER |=  (GPIO_MODER_MODE0_0 |
+					  GPIO_MODER_MODE1_0 |
+					  GPIO_MODER_MODE2_0 |
+					  GPIO_MODER_MODE3_0 |
+					  GPIO_MODER_MODE4_0 |
+					  GPIO_MODER_MODE5_0 |
+					  GPIO_MODER_MODE6_0 |
+					  GPIO_MODER_MODE7_0);
 
-    // PUPD to 00b
-    GPIOA->PUPDR &=	  ~(GPIO_PUPDR_PUPD0 |
-    					GPIO_PUPDR_PUPD1 |
-						GPIO_PUPDR_PUPD2 |
-						GPIO_PUPDR_PUPD3 |
-						GPIO_PUPDR_PUPD4 |
-						GPIO_PUPDR_PUPD5 |
-						GPIO_PUPDR_PUPD6 |
-						GPIO_PUPDR_PUPD7);
+	GPIOA->OTYPER &= ~(GPIO_OTYPER_OT0 |
+					   GPIO_OTYPER_OT1 |
+					   GPIO_OTYPER_OT2 |
+					   GPIO_OTYPER_OT3 |
+					   GPIO_OTYPER_OT4 |
+					   GPIO_OTYPER_OT5 |
+					   GPIO_OTYPER_OT6 |
+					   GPIO_OTYPER_OT7);
+
+	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0 |
+						GPIO_OSPEEDR_OSPEED1 |
+						GPIO_OSPEEDR_OSPEED2 |
+						GPIO_OSPEEDR_OSPEED3 |
+						GPIO_OSPEEDR_OSPEED4 |
+						GPIO_OSPEEDR_OSPEED5 |
+						GPIO_OSPEEDR_OSPEED6 |
+						GPIO_OSPEEDR_OSPEED7);
+
+	GPIOA->OSPEEDR |=  (GPIO_OSPEEDR_OSPEED0 |
+						GPIO_OSPEEDR_OSPEED1 |
+						GPIO_OSPEEDR_OSPEED2 |
+						GPIO_OSPEEDR_OSPEED3 |
+						GPIO_OSPEEDR_OSPEED4 |
+						GPIO_OSPEEDR_OSPEED5 |
+						GPIO_OSPEEDR_OSPEED6 |
+						GPIO_OSPEEDR_OSPEED7);
+
+	GPIOA->PUPDR &= ~(GPIO_PUPDR_PUPD0 |
+					  GPIO_PUPDR_PUPD1 |
+					  GPIO_PUPDR_PUPD2 |
+					  GPIO_PUPDR_PUPD3 |
+					  GPIO_PUPDR_PUPD4 |
+					  GPIO_PUPDR_PUPD5 |
+					  GPIO_PUPDR_PUPD6 |
+					  GPIO_PUPDR_PUPD7);
 
 	// set PB0 to RS
 	// set PB1 to RW
 	// set PB2 to E
-    RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOBEN);
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 
-    GPIOB->MODER &=   ~(GPIO_MODER_MODE0);
+	GPIOB->MODER &= ~(GPIO_MODER_MODE0 |
+					  GPIO_MODER_MODE1 |
+					  GPIO_MODER_MODE2);
 
-    GPIOB->MODER &=   ~(GPIO_MODER_MODE0 |
-    					GPIO_MODER_MODE1 |
-						GPIO_MODER_MODE2);
+	GPIOB->MODER |=  (GPIO_MODER_MODE0_0 |
+					  GPIO_MODER_MODE1_0 |
+					  GPIO_MODER_MODE2_0);
 
-    GPIOB->MODER |=    (GPIO_MODER_MODE0 |
-			  	  	  	GPIO_MODER_MODE1 |
-					    GPIO_MODER_MODE2);
+	GPIOB->OTYPER &= ~(GPIO_OTYPER_OT0 |
+					   GPIO_OTYPER_OT1 |
+					   GPIO_OTYPER_OT2);
 
-    GPIOB->PUPDR &=   ~(GPIO_PUPDR_PUPD0 |
-						GPIO_PUPDR_PUPD1 |
-						GPIO_PUPDR_PUPD2);
+	GPIOB->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0 |
+						GPIO_OSPEEDR_OSPEED1 |
+						GPIO_OSPEEDR_OSPEED2);
 
+	GPIOB->OSPEEDR |=  (GPIO_OSPEEDR_OSPEED0 |
+						GPIO_OSPEEDR_OSPEED1 |
+						GPIO_OSPEEDR_OSPEED2);
+
+	GPIOB->PUPDR &= ~(GPIO_PUPDR_PUPD0 |
+					  GPIO_PUPDR_PUPD1 |
+					  GPIO_PUPDR_PUPD2);
+
+	// ADDED: reset PA0-PA7 low
+	GPIOA->BSRR = (GPIO_BSRR_BR0 |
+				   GPIO_BSRR_BR1 |
+				   GPIO_BSRR_BR2 |
+				   GPIO_BSRR_BR3 |
+				   GPIO_BSRR_BR4 |
+				   GPIO_BSRR_BR5 |
+				   GPIO_BSRR_BR6 |
+				   GPIO_BSRR_BR7);
+
+	// ADDED: reset PB0-PB2 low
+	GPIOB->BSRR = (GPIO_BSRR_BR0 |
+				   GPIO_BSRR_BR1 |
+				   GPIO_BSRR_BR2);
 }
 
-enum LCD_Pins {
-	RS,
-	RW,
-	E,
-	DB0,
-	DB1,
-	DB2,
-	DB3,
-	DB4,
-	DB5,
-	DB6,
-	DB7
-	,
-};
+
+
+//enum LCD_Pins {
+//	RS,
+//	RW,
+//	E,
+//	DB0,
+//	DB1,
+//	DB2,
+//	DB3,
+//	DB4,
+//	DB5,
+//	DB6,
+//	DB7
+//	,
+//};
 
 
 void LCD_RS_set_0(void) {
@@ -154,6 +259,43 @@ void LCD_command(uint8_t command)
 	HAL_Delay(delay_ms);
 }
 
+void LCD_write_q()
+{
+	int delay_ms = 1;
+
+	LCD_RS_set_1();
+	LCD_RW_set_1();
+
+	uint8_t q = 0b01110001;
+	LCD_DR_set(q);
+
+	HAL_Delay(1);
+
+	LCD_E_set_1();
+	HAL_Delay(delay_ms);
+	LCD_E_set_0();
+
+	HAL_Delay(delay_ms);
+}
+
+void LCD_write(uint8_t chr)
+{
+	int delay_ms = 1;
+
+	LCD_RS_set_1();
+	LCD_RW_set_0();
+
+	LCD_DR_set(chr);
+
+	HAL_Delay(1);
+
+	LCD_E_set_1();
+	HAL_Delay(delay_ms);
+	LCD_E_set_0();
+
+	HAL_Delay(delay_ms);
+}
+
 
 /**
   * @brief  The application entry point.
@@ -170,7 +312,20 @@ int main(void)
 
   while (1)
   {
+	  uint8_t display_on 	= 0b00001111;
+	  uint8_t display_clear = 0b00000001;
+	  uint8_t return_home 	= 0b00000010;
+	  uint8_t entry_mode 	= 0b00000110;
+	  uint8_t function_set 	= 0b00111100;
 
+
+	  LCD_command(display_clear);
+	  //LCD_command(return_home);
+	  LCD_command(display_on);
+	  //LCD_command(entry_mode);
+	  LCD_write('a');
+
+	  HAL_Delay(10000000);
   }
   /* USER CODE END 3 */
 }
